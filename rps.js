@@ -1,8 +1,14 @@
 
 alert("Welcome to the game Rock Paper Scissors, please click OK to start playing");
+let playerScore = 0;
+let computerScore = 0;
 
 function getPlayerSelection() {
     let playerSelection = prompt("Please enter rock, paper or scissors");
+    if (playerSelection === null){
+        alert("You have cancelled the game");
+        return 0;
+    }
     let playerSelectionLC = playerSelection.toLowerCase();
         if (playerSelectionLC === "rock" || playerSelectionLC == "scissors" || playerSelectionLC === "paper") {
             if (playerSelectionLC === "rock"){
@@ -17,7 +23,7 @@ function getPlayerSelection() {
             
         }
         else {
-            alert("You have cancelled the round");
+            alert("You have cancelled the game");
             return 0;
         }
     
@@ -30,7 +36,7 @@ function getComputerSelection() {
 function playRound(pS, cS){
         if (pS === 1){
             if (cS === 1){
-                alert ("computer has chosen rock as well: tie! Choose again")
+                alert ("computer has chosen rock as well: tie!")
                 return 0;
             }
             else if (cS === 2){
@@ -49,7 +55,7 @@ function playRound(pS, cS){
                 return 1;
             }
             else if (cS === 2){
-                alert ("computer has chosen paper as well: tie! Choose again")
+                alert ("computer has chosen paper as well: tie!")
                 return 0;
             }
             else{
@@ -57,7 +63,7 @@ function playRound(pS, cS){
                 return -1;
             }
         }
-        else{
+        else if (pS === 3){
             if (cS === 1){
                 alert ("computer chose rock : you lose!")
                 return -1;
@@ -67,19 +73,60 @@ function playRound(pS, cS){
                 return 1;
             }
             else{
-                alert ("computer has chosen scissors as well: tie! choose again")
+                alert ("computer has chosen scissors as well: tie!")
                 return -1;
             }
         }
+        else{
+            return 2
+        }
 }
 
-playerSelection = getPlayerSelection();
-computerSelection = getComputerSelection();
-roundValue = playRound(playerSelection, computerSelection);
+function game(){
+        pS = getPlayerSelection();
+        if (pS === 0){
+            return 0;
+        }
+        console.log(pS);
+        cS = getComputerSelection();
+        console.log(cS)
+        roundResult = playRound(pS, cS);
+        console.log(roundResult);
+    for (let i = 0; i<4; i++) {
+        if (roundResult === 1){
+            playerScore = playerScore +1;
+        }
+        else if (roundResult === -1){
+            computerScore = computerScore +1;
+        }
+        console.log("score = " + playerScore + " - " + computerScore);
+        pS = getPlayerSelection();
+        if (pS === 0){
+            return 0;
+        }
+        console.log(pS);
+        cS = getComputerSelection();
+        console.log(cS)
+        roundResult = playRound(pS, cS);
+        console.log(roundResult);
+    }
+    if (playerScore > computerScore){
+        alert("You won the game. Congratulations");
+    }
+    else if (playerScore < computerScore){
+        alert("You lost the game :(");
+    }
+    else if (playerScore = computerScore){
+        alert("It's a tie");
+    }
+    else {
+        alert("Something went wrong")
+    }
+}
 
-console.log(playerSelection);
-console.log(computerSelection);
-console.log(roundValue);
+game();
+
+
 
 
 
